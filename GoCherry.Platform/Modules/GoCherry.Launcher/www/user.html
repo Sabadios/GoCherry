@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang = "en" ng-app = "GoCherryApp">
+<head>
+  <title>User</title>
+<#include "header.html">
+</head>
+<body>
+  <div class = "container">
+    <div>
+    <#include "navbar.html">
+    </div>
+
+    <div ng-controller = "userFrmCntlr">
+      <form class = "form-horizontal" id = "userFrm">
+        <fieldset>
+          <legend>User information:</legend>
+
+          <div class = "form-group">
+            <label class = "col-md-4 control-label" for = "ID">User name:</label>
+            <div class = "col-md-4">
+              <input  type = "text" class = "form-control input-md" id = "ID" name = "ID" placeholder = "<your user id>" required = "" ng-model = "userFrm.ID">
+              <span class = "help-block">as a user you need an ID</span>
+            </div>
+          </div>
+
+          <div class = "form-group">
+            <label class = "col-md-4 control-label" for = "password">Password:</label>
+            <div class = "col-md-4">
+              <input type = "password" class = "form-control input-md" id = "password" name = "password" placeholder = "<your user password>" required = "" ng-model = "userFrm.password">
+              <span class = "help-block">as a user you need a strong password</span>
+            </div>
+          </div>
+
+          <div class = "form-group">
+            <label class = "col-md-4 control-label" for = "save"></label>
+            <div class = "col-md-4">
+              <button class = "btn btn-primary" id = "save" name = "save" ng-click = "userFrm.submitUserForm()">Save</button>
+            </div>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

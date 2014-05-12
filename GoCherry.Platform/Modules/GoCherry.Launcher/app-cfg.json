@@ -1,0 +1,18 @@
+{
+    "profile" : "Development",
+    "version" : "1.0.0-alpha",
+    "docRoot" : "www",
+    "welcomeDoc": "index.html",
+    "httpPort" : 8080,
+    "controllerNamespaces" : ["org.Cherry.Go.Controllers"],
+    "sessionCookie" : "JSESSIONID",
+    "cookieDomain" : "localhost",
+    "cookiePath" : "/",
+    "cookieVersion" : 1,
+    "cookieTimeToLive" : 60,
+    "maxPostSize" : 2097152,
+    "corePoolSize" : -1,
+    "maximumPoolSize" : -1,
+    "keepAliveTime" : -1,
+    "serverSessions" : false
+}

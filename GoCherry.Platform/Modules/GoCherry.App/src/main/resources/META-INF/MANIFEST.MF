@@ -1,0 +1,1 @@
+Main-Class: org.Cherry.Go.Main.App
