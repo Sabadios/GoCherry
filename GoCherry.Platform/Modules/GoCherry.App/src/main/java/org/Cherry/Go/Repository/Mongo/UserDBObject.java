@@ -30,78 +30,35 @@
  * Contributors:
  * Cristian Malinescu - initial design, API and implementation
  *******************************************************************************/
-package org.Cherry.Go.Model;
+package org.Cherry.Go.Repository.Mongo;
 
-import java.io.Serializable;
+import org.Cherry.Go.Model.User;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.mongodb.BasicDBObject;
 
 /**
  * @author Cristian.Malinescu
  * 
  */
-public class User implements Serializable {
-  public String getId() {
-    return _id;
+public final class UserDBObject extends BasicDBObject {
+  /**
+  *
+  */
+  public UserDBObject(final User user) {
+    assert null != user;
+    put("id", user.getId());
+    put("parole", user.getParole());
   }
 
-  public void setId(final String id) {
-    assert null != id && 8 <= id.trim().length();
-    _id = id;
+  public User asUser() {
+    return new User(getString("id"), getString("parole"));
   }
 
-  public String getParole() {
-    return _parole;
+  /**
+   *
+   */
+  public UserDBObject() {
   }
-
-  public void setParole(final String parole) {
-    assert null != parole && 8 <= parole.trim().length();
-    _parole = parole;
-  }
-
-  @Override
-  public int hashCode() {
-    return getId().hashCode();
-  }
-
-  @Override
-  public boolean equals(final Object other) {
-    if (this == other)
-      return true;
-
-    if (other instanceof User) {
-      final User that = (User) other;
-      return getId().equals(that.getId());
-    }
-
-    return false;
-  }
-
-  @Override
-  public String toString() {
-    final StringBuilder sb = new StringBuilder("{User:{");
-    sb.append("'id':'").append(getId()).append("', 'parole':'").append(getParole()).append("'");
-
-    sb.append("}}");
-
-    return sb.toString();
-  }
-
-  @JsonProperty("id")
-  private String _id;
-
-  @JsonProperty("parole")
-  private String _parole;
-
-  public User(final String id, final String parole) {
-    setId(id);
-    setParole(parole);
-  }
-
-  public User() {
-  }
-
-  static public final String TYPE_ID = User.class.getCanonicalName();
 
   private static final long serialVersionUID = 1L;
 }

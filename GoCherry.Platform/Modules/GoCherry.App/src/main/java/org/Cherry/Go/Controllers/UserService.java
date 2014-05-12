@@ -53,6 +53,7 @@ import javax.ws.rs.core.MediaType;
 import org.Cherry.Core.ServiceTemplate;
 import org.Cherry.Go.Model.User;
 import org.Cherry.Go.Model.Users;
+import org.Cherry.Go.Repository.Mongo.UserDBObject;
 import org.Cherry.Modules.Hazelcast.Middleware.HazelcastService;
 import org.Cherry.Modules.Mongo.Middleware.MongoRepositoryService;
 import org.Cherry.Modules.Web.Engine.Context;
@@ -60,6 +61,11 @@ import org.Cherry.Modules.Web.Engine.InvocationContext;
 import org.Cherry.Modules.Web.Engine.SessionManager;
 import org.apache.http.HttpRequest;
 import org.jboss.weld.environment.se.events.ContainerInitialized;
+
+import com.mongodb.DB;
+import com.mongodb.DBCollection;
+import com.mongodb.MongoException;
+import com.mongodb.WriteConcern;
 
 /**
  * @author Cristian.Malinescu
@@ -86,9 +92,9 @@ public final class UserService extends ServiceTemplate {
 
     debug("Invoked by [{}] with bean parameter [{}]", request, user);
 
-    final User updatedUser = new User(null != user ? user.getId() : "<--null-->", (null != user ? user.getParole() : "<--null-->") + "*");
+    persist(user);
 
-    return updatedUser;
+    return user;
   }
 
   @Path(value = "/users")
@@ -105,6 +111,26 @@ public final class UserService extends ServiceTemplate {
     final Users users = new Users(data);
 
     return users;
+  }
+
+  private Boolean persist(final User user) {
+    try {
+      getUsers().insert(new UserDBObject(user), WriteConcern.ACKNOWLEDGED);
+    } catch (final MongoException err) {
+      error(err, err.getMessage());
+      return false;
+    }
+
+    return true;
+  }
+
+  private DBCollection getUsers() {
+    return getDB().getCollection(User.TYPE_ID);
+  }
+
+  private DB getDB() {
+    assert null != _mongoRepository;
+    return getMongoRepository().getDB(MongoRepositoryService.DEFAULT_DB_NAME);
   }
 
   private SessionManager getSessionManager() {
