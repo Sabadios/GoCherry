@@ -129,7 +129,6 @@ public final class UserService extends ServiceTemplate {
   }
 
   private DB getDB() {
-    assert null != _mongoRepository;
     return getMongoRepository().getDB(MongoRepositoryService.DEFAULT_DB_NAME);
   }
 
