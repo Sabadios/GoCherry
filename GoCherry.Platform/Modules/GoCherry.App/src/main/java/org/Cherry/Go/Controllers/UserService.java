@@ -56,6 +56,7 @@ import org.Cherry.Go.Model.Users;
 import org.Cherry.Go.Repository.Mongo.UserDBObject;
 import org.Cherry.Modules.Hazelcast.Middleware.HazelcastService;
 import org.Cherry.Modules.Mongo.Middleware.MongoRepositoryService;
+import org.Cherry.Modules.Web.Agents.Model.MessageTemplate;
 import org.Cherry.Modules.Web.Engine.Context;
 import org.Cherry.Modules.Web.Engine.InvocationContext;
 import org.Cherry.Modules.Web.Engine.SessionManager;
@@ -87,14 +88,15 @@ public final class UserService extends ServiceTemplate {
   @Path(value = "/save")
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.APPLICATION_JSON)
-  public Object save(@BeanParam final User user) {
+  public MessageTemplate save(@BeanParam final User user) {
     final HttpRequest request = Context.getInvocationContext().get(InvocationContext.Key.Request);
 
     debug("Invoked by [{}] with bean parameter [{}]", request, user);
 
-    persist(user);
+    if (persist(user))
+      return new SuccessMessage();
 
-    return user;
+    return new FailureMessage();
   }
 
   @Path(value = "/users")

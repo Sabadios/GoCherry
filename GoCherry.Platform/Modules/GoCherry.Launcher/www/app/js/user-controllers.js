@@ -13,7 +13,7 @@ GoCherryUserCntrlrs.controller("userFrmCntlr", function($scope, $http) {
      var responsePromise = $http.post("/user/save", new User($scope.userFrm.ID, $scope.userFrm.password), {});
 
      responsePromise.success(function(response, status, headers, config) {
-       cout("Server saved data [" + response.id + "], [" + response.parole + "]");
+       cout("Server saved data [" + response.id + "], [" + response.status.code + "]");
      });
 
      responsePromise.error(function(data, status, headers, config) {
