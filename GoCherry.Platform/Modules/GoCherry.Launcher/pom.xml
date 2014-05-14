@@ -2,31 +2,31 @@
   xsi:schemaLocation = "http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <artifactId>GoCherry.Launcher</artifactId>
+  <artifactId>org.sabadios.gocherry.launcher</artifactId>
   <packaging>jar</packaging>
 
   <name>GoCherry.Launcher</name>
   <url>http://www.GoCherry.org</url>
-  
+
   <scm>
     <developerConnection>Cristian Malinescu</developerConnection>
-  </scm>    
-   
+  </scm>
+
   <parent>
-    <groupId>Sabadios.Platform</groupId>
-    <artifactId>GoCherry.Platform</artifactId>
+    <groupId>org.sabadios</groupId>
+    <artifactId>org.sabadios.gocherry.platform</artifactId>
     <version>1.0.0</version>
     <relativePath>../..</relativePath>
   </parent>
-  
+
   <dependencies>
     <dependency>
-      <groupId>Sabadios.Platform</groupId>
-      <artifactId>GoCherry.App</artifactId>
+      <groupId>org.sabadios</groupId>
+      <artifactId>org.sabadios.gocherry.app</artifactId>
       <version>1.0.0</version>
     </dependency>
-  </dependencies> 
-  
+  </dependencies>
+
   <build>
     <plugins>
       <plugin>
@@ -36,15 +36,15 @@
         <configuration>
           <archive>
             <manifest>
-              <addClasspath>true</addClasspath>  
+              <addClasspath>true</addClasspath>
               <classpathPrefix>lib/</classpathPrefix>
-              <mainClass>org.Cherry.Go.Main.App</mainClass>          
+              <mainClass>org.Cherry.Go.Main.App</mainClass>
               <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
               <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
             </manifest>
           </archive>
         </configuration>
-      </plugin>    
+      </plugin>
     </plugins>
-  </build>  
+  </build>
 </project>
