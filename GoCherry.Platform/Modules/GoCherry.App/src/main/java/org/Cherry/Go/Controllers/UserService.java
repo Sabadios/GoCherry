@@ -131,7 +131,7 @@ public final class UserService extends ServiceTemplate {
   }
 
   private DB getDB() {
-    return getMongoRepository().getDB(MongoRepositoryService.DEFAULT_DB_NAME);
+    return getMongoRepository().getDB();
   }
 
   private SessionManager getSessionManager() {
