@@ -42,11 +42,11 @@
   <logger name = "com.google" level = "ERROR" />
   <logger name = "freemarker" level = "ERROR" />
   <logger name = "jersey" level = "ERROR" />
-  <logger name = "org.Cherry" level = "ERROR" />
+  <logger name = "org.Cherry" level = "DEBUG" />
   <logger name = "Cherry-Modules-Web-Trace" level = "INFO" />
   <logger name = "Cherry-Modules-Web-Metrics" level = "INFO" />
   <logger name = "Cherry-Modules-Web-Session" level = "INFO" />
-  <logger name = "Cherry-Modules-Web-Intercept" level = "INFO" />
+  <logger name = "Cherry-Modules-Web-Intercept" level = "DEBUG" />
 
   <root level = "INFO">
     <appender-ref ref = "FILE" />

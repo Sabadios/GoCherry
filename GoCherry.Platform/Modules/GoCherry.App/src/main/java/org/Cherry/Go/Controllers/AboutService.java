@@ -30,34 +30,51 @@
  * Contributors:
  * Cristian Malinescu - initial design, API and implementation
  *******************************************************************************/
-package org.Cherry.Go.Repository.Mongo;
+package org.Cherry.Go.Controllers;
 
-import org.Cherry.Go.Model.User;
+import static org.Cherry.Modules.Web.WebConstants.URI_TOKEN;
 
-import com.mongodb.BasicDBObject;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+import javax.annotation.concurrent.NotThreadSafe;
+import javax.inject.Singleton;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
+import org.Cherry.Core.ServiceTemplate;
 
 /**
  * @author Cristian.Malinescu
  * 
  */
-public final class UserDBObject extends BasicDBObject {
-  /**
-  *
-  */
-  public UserDBObject(final User user) {
-    assert null != user;
-    put("id", user.getId());
-    put("parole", user.getParole());
+@Singleton
+@Path(value = AgentURI.About.BASE_URI)
+@NotThreadSafe
+public final class AboutService extends ServiceTemplate {
+  @Path(value = URI_TOKEN)
+  @Produces(MediaType.TEXT_HTML)
+  public Map<?, ?> get() {
+    final Map<String, Date> dateTimeNow = new HashMap<String, Date>();
+
+    dateTimeNow.put("dateTimeNow", new Date());
+
+    return dateTimeNow;
   }
 
-  public User asUser() {
-    return new User(getString("id"), getString("parole"));
+  @PostConstruct
+  protected void postConstruct() {
   }
 
-  /**
-   *
-   */
-  public UserDBObject() {
+  @PreDestroy
+  protected void preDestroy() {
+  }
+
+  public AboutService() {
   }
 
   private static final long serialVersionUID = 1L;

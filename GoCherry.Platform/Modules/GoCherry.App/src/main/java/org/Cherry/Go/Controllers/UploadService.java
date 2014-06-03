@@ -30,78 +30,52 @@
  * Contributors:
  * Cristian Malinescu - initial design, API and implementation
  *******************************************************************************/
-package org.Cherry.Go.Model;
+package org.Cherry.Go.Controllers;
 
-import java.io.Serializable;
+import static org.Cherry.Modules.Web.WebConstants.URI_TOKEN;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+import javax.annotation.concurrent.NotThreadSafe;
+import javax.inject.Singleton;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
+import org.Cherry.Core.ServiceTemplate;
 
 /**
  * @author Cristian.Malinescu
  * 
  */
-public class User implements Serializable {
-  public String getId() {
-    return _id;
+@Singleton
+@Path(value = AgentURI.Upload.BASE_URI)
+@NotThreadSafe
+public final class UploadService extends ServiceTemplate {
+  @Path(value = URI_TOKEN)
+  @Produces(MediaType.TEXT_HTML)
+  public Map<?, ?> get() {
+    final Map<String, Date> dateTimeNow = new HashMap<String, Date>();
+
+    dateTimeNow.put("dateTimeNow", new Date());
+
+    return dateTimeNow;
   }
 
-  public void setId(final String id) {
-    assert null != id && 8 <= id.trim().length();
-    _id = id;
+  @PostConstruct
+  protected void postConstruct() {
   }
 
-  public String getParole() {
-    return _parole;
+  @PreDestroy
+  protected void preDestroy() {
   }
 
-  public void setParole(final String parole) {
-    assert null != parole && 8 <= parole.trim().length();
-    _parole = parole;
+  public UploadService() {
   }
-
-  @Override
-  public int hashCode() {
-    return getId().hashCode();
-  }
-
-  @Override
-  public boolean equals(final Object other) {
-    if (this == other)
-      return true;
-
-    if (other instanceof User) {
-      final User that = (User) other;
-      return getId().equals(that.getId());
-    }
-
-    return false;
-  }
-
-  @Override
-  public String toString() {
-    final StringBuilder sb = new StringBuilder("{User:{");
-    sb.append("'id':'").append(getId()).append("', 'parole':'").append(getParole()).append("'");
-
-    sb.append("}}");
-
-    return sb.toString();
-  }
-
-  @JsonProperty("id")
-  private String _id;
-
-  @JsonProperty("parole")
-  private String _parole;
-
-  public User(final String id, final String parole) {
-    setId(id);
-    setParole(parole);
-  }
-
-  public User() {
-  }
-
-  static public final String TYPE_ID = User.class.getCanonicalName();
 
   private static final long serialVersionUID = 1L;
 }

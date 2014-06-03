@@ -32,14 +32,49 @@
  *******************************************************************************/
 package org.Cherry.Go.Controllers;
 
-import org.Cherry.Modules.Web.Agents.Model.FailureMessageTemplate;
+import static org.Cherry.Modules.Web.WebConstants.URI_TOKEN;
+
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+import javax.annotation.concurrent.NotThreadSafe;
+import javax.inject.Singleton;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
+import org.Cherry.Core.ServiceTemplate;
 
 /**
  * @author Cristian.Malinescu
  * 
  */
-public final class FailureMessage extends FailureMessageTemplate {
-  public FailureMessage() {
+@Singleton
+@Path(value = AgentURI.Contact.BASE_URI)
+@NotThreadSafe
+public final class ContactService extends ServiceTemplate {
+  @Path(value = URI_TOKEN)
+  @Produces(MediaType.TEXT_HTML)
+  public Map<?, ?> get() {
+    final Map<String, Date> dateTimeNow = new HashMap<String, Date>();
+
+    dateTimeNow.put("dateTimeNow", new Date());
+
+    return dateTimeNow;
+  }
+
+  @PostConstruct
+  protected void postConstruct() {
+  }
+
+  @PreDestroy
+  protected void preDestroy() {
+  }
+
+  public ContactService() {
   }
 
   private static final long serialVersionUID = 1L;

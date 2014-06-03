@@ -32,7 +32,7 @@
  *******************************************************************************/
 package org.Cherry.Go.Controllers;
 
-import static org.Cherry.Modules.Web.WebConstants.ROOT_URI;
+import static org.Cherry.Modules.Web.WebConstants.URI_TOKEN;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -53,14 +53,12 @@ import org.Cherry.Core.ServiceTemplate;
  * 
  */
 @Singleton
-@Path(value = ROOT_URI)
+@Path(value = AgentURI.Index.BASE_URI)
 @NotThreadSafe
 public final class IndexService extends ServiceTemplate {
-  @Path(value = ROOT_URI)
+  @Path(value = URI_TOKEN)
   @Produces(MediaType.TEXT_HTML)
   public Map<?, ?> get() {
-    debug("'get()' Invoked by [{}]", Thread.currentThread());
-
     final Map<String, Date> dateTimeNow = new HashMap<String, Date>();
 
     dateTimeNow.put("dateTimeNow", new Date());
@@ -68,20 +66,12 @@ public final class IndexService extends ServiceTemplate {
     return dateTimeNow;
   }
 
-  @Path(value = "/timeStamp")
-  @Produces(MediaType.APPLICATION_JSON)
-  public String timeStamp() {
-    return "";
-  }
-
   @PostConstruct
   protected void postConstruct() {
-    info("Instance [{}] 'postConstruct' signal received.", this);
   }
 
   @PreDestroy
   protected void preDestroy() {
-    info("Instance [{}] 'preDestroy' signal received.", this);
   }
 
   public IndexService() {

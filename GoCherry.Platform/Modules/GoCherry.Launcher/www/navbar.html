@@ -1,42 +1,99 @@
-  <nav class = "navbar navbar-default" role = "navigation">
-    <div class = "container-fluid">
-      <div class = "navbar-header">
-        <button type = "button" class = "navbar-toggle" data-toggle = "collapse" data-target = "#bs-example-navbar-collapse-1">
-          <span class = "sr-only">Toggle navigation</span>
-          <span class = "icon-bar"></span>
-          <span class = "icon-bar"></span>
-          <span class = "icon-bar"></span>
-        </button>
-        <a class = "navbar-brand" href = "/">Go Cherry, go!</a>
-      </div>
+  <div ng-controller = "navBarCntrlr" ng-init = "signIn=true;signOut=false">
+    <div>
+      <nav class = "navbar navbar-default" role = "navigation">
+        <div class = "container-fluid">
+          <div class = "navbar-header">
+            <button type = "button" class = "navbar-toggle" data-toggle = "collapse" data-target = "#app-navbar">
+              <span class = "sr-only">Toggle navigation</span>
+              <span class = "icon-bar"></span>
+              <span class = "icon-bar"></span>
+              <span class = "icon-bar"></span>
+            </button>
+            <a class = "navbar-brand" href = "/">Go Cherry, go!</a>
+          </div>
 
-      <div class = "collapse navbar-collapse" id = "bs-example-navbar-collapse-1">
-        <ul class = "nav navbar-nav">
-          <li class = "active"><a href = "/">Home</a></li>
-        </ul>
-
-        <ul class = "nav navbar-nav">
-          <li><a href = "https://github.com/Sabadios/Cherry">@GitHub</a></li>
-          <li><a href = "#">Summary</a></li>
-          <li><a href = "#">Examples</a></li>
-          <li><a href = "https://sabadios.wordpress.com">@Wordpress</a></li>
-          <li><a href = "https://groups.google.com/forum/#!forum/cherry-framework">@Google Groups</a></li>
-        </ul>
-
-        <ul class = "nav navbar-nav navbar-right">
-          <li class = "dropdown">
-            <a href = "#" class = "dropdown-toggle" data-toggle = "dropdown">Sections <b class = "caret"></b></a>
-            <ul class = "dropdown-menu">
-              <li><a href = "#">Documentation</a></li>
-              <li><a href = "user">Register</a></li>
-              <li><a href = "#">Downloads</a></li>
-              <li class = "divider"></li>
-              <li><a href = "#">Contact</a></li>
-              <li class = "divider"></li>
-              <li><a href = "#">About</a></li>
+          <div class = "collapse navbar-collapse" id = "app-navbar">
+            <ul class = "nav navbar-nav">
+              <li class = "active"><a href = "/">Home</a></li>
             </ul>
-          </li>
-        </ul>
-      </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
-  </nav>
+
+            <ul class = "nav navbar-nav">
+              <li><a href = "https://github.com/Sabadios/Cherry">@GitHub</a></li>
+              <li><a href = "#">Summary</a></li>
+              <li><a href = "#">Examples</a></li>
+              <li><a href = "https://sabadios.wordpress.com">@Wordpress</a></li>
+              <li><a href = "https://groups.google.com/forum/#!forum/cherry-framework">@Google Groups</a></li>
+            </ul>
+
+            <ul class = "nav navbar-nav navbar-right">
+              <li class = "dropdown">
+                <a href = "#" class = "dropdown-toggle" data-toggle = "dropdown">Sections <b class = "caret"></b></a>
+                <ul class = "dropdown-menu">
+                  <li><a href = "documentation">Documentation</a></li>
+                  <li><a href = "user">Register</a></li>
+                  <li><a href = "#">Downloads</a></li>
+                  <li><a href = "upload">Upload</a></li>
+                  <li class = "divider"></li>
+                  <li><a href = "contact">Contact</a></li>
+                  <li class = "divider"></li>
+                  <li><a href = "about">About</a></li>
+                </ul>
+              </li>
+              <li>
+                <div id = "signInWdgt" ng-show = "signIn" ng-hide = "signOut">
+                  <button class = "btn btn-default navbar-btn" data-toggle = "modal" data-target = ".signInDlg">Sign-in</button>
+                </div>
+              </li>
+              <li>
+                <div id = "signOutWdgt" ng-show = "signOut" ng-hide = "signIn">
+                  <button class = "btn btn-default navbar-btn" ng-click = "signOutWdgt.signMeOut()">Sign-out</button>
+                </div>
+              </li>
+            </ul>
+          </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+      </nav>
+    </div>
+
+    <div>
+      <div id = "signInCntnr">
+        <div class = "modal fade signInDlg" tabindex = "-1" role = "dialog" aria-labelledby = "signInDlgLabel" aria-hidden = "true">
+          <div class = "modal-dialog modal-sm">
+            <div class = "modal-content">
+              <div class = "modal-header">
+                <button type = "button" class = "close" data-dismiss = "modal" aria-hidden = "true">&times;</button>
+                <h4 class = "modal-title" id = "signInDlgLabel">Authentication</h4>
+              </div><!-- /.modal-header -->
+              <div class = "modal-body">
+                <form class = "form-signin" id = "signInFrm" role = "form">
+                  <h4 class = "form-signin-heading">Please provide credentials :</h4>
+                  <input type = "text" class = "form-control" placeholder = "User" required autofocus ng-model = "signInFrm.user" ng-minlength = 8 ng-maxlength = 32>
+                  <input type = "password" class = "form-control" placeholder = "Password" required ng-model = "signInFrm.password" ng-minlength = 8 ng-maxlength = 32>
+                  <label class = "checkbox">
+                    <input type = "checkbox" value = "remember-me"> Remember me
+                  </label>
+                  <button class = "btn btn-lg btn-primary btn-block" type = "submit" data-dismiss = "modal" aria-hidden = "false" ng-click = "signInFrm.signMeIn()">Sign in</button>
+                </form>
+              </div><!-- /.modal-body -->
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+        <div>
+                          <span class = "error" ng-show = "signInFrm.user.$error.required">Required!</span><br>
+                  <span class = "error" ng-show = "signInFrm.user.$error.minlength">Too short!</span>
+                  <span class = "error" ng-show = "signInFrm.user.$error.maxlength">Too long!</span>
+                  <span class = "error" ng-show = "signInFrm.password.$error.required">Required!</span><br>
+                  <span class = "error" ng-show = "signInFrm.password.$error.minlength">Too short!</span>
+                  <span class = "error" ng-show = "signInFrm.password.$error.maxlength">Too long!</span>
+                  <div class = "error" ng-show = "signInFrm.user.$dirty && signInFrm.user.$invalid">
+                    <small class = "error" ng-show = "signInFrm.user.$error.required">Required!</small>
+                    <small class = "error" ng-show = "signInFrm.user.$error.minlength">Too short!</small>
+                    <small class = "error" ng-show = "signInFrm.user.$error.maxlength">Too long!</small>
+                  </div>
+        </div>
+      </div>
+      <div id = "signOutCntnr">
+      </div>
+    </div>
+  </div>

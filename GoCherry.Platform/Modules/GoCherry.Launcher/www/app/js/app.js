@@ -2,5 +2,5 @@
 
 /* App Module */
 
-var GoCherryApp = angular.module("GoCherryApp", ["GoCherryIndexCntrlrs", "GoCherryUserCntrlrs"]);
+var GoCherryApp = angular.module("GoCherryApp", ["navBarCntrlrs", "GoCherryIndexCntrlrs", "GoCherryUserCntrlrs"]);
 
